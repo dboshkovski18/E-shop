@@ -23,8 +23,11 @@ public class User implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<ShoppingCart> shoppingCarts;
+
+    @ManyToOne
+    private Discount discount;
 
 
     private boolean isAccountNonExpired = true;
