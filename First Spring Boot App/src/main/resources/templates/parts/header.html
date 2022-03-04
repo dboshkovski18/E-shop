@@ -1,0 +1,67 @@
+<header xmlns:th="http://www.thymeleaf.org">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/home">WEB PROGRAMMING SHOP</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/products">Products</a>
+                    </li>
+
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/categoryAndManufacturer/categoryForm">Categories</a>
+                    </li>
+                    </th:block>
+
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/categoryAndManufacturer/manufacturerForm">Manufacturers</a>
+                    </li>
+                    </th:block>
+
+
+                </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="nav-item" >
+                        <a class="nav-link" href="#">
+                            <th:block th:if="${#request.getRemoteUser() != null}"
+                                      th:text="${#request.getRemoteUser()}"></th:block>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-success btn-sm ml-3" href="/shopping-cart">
+                           <i class="fa fa-shopping-cart"></i>Shopping-cart
+                        </i>
+                        </a>
+
+                        <th:block th:if="${#request.getRemoteUser()} == null">
+                        <a class="btn btn-info btn-sm ml-3" href="/login">
+                            <i class="fa fa-shopping-cart"></i> Login
+                        </a>
+                        </th:block>
+
+                        <th:block th:if="${#request.getRemoteUser()} != null">
+                        <a class="btn btn-danger btn-sm ml-3" href="/logout">
+                            <i class="fa fa-shopping-cart"></i>Logout
+                        </a>
+                        </th:block>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

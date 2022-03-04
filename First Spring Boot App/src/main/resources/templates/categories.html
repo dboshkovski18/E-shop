@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+<h2>User Info:</h2>
+<h4>IP Address</h4>
+<th:block th:text="${ipAddress}"></th:block>
+    <h4>Client:</h4>
+<th:block th:text="${clientAgent}"></th:block>
+<th:block th:if="${session.user != null}">
+<h2>Info about the user:</h2>
+<div th:text="${session.user.username}"></div>
+<div th:text="${session.user.name}"></div>
+<div th:text="${session.user.surname}"></div>
+    <div>
+        <a href="/logout">Logout</a>
+    </div>
+</th:block>
+
+
+<h4>Category List:</h4>
+<ul>
+   <li th:each="c : ${categories}">
+       <th:block th:text="${c.name} + ' ('+${c.description}+')'"></th:block>
+   </li>
+</ul>
+
+<h4>Add Category</h4>
+<form th:method="POST" th:action="@{/servlet/thymeleaf/category}">
+    <label for="name">Name:</label><input id="name" type="text" name="name"/><br/>
+    <label for="desc">Description:</label><input id="desc" type="text" name="desc"/><br/>
+    <button type="submit" value="submit">Submit</button>
+</form>
+</body>
+</html>

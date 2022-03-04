@@ -1,0 +1,46 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+<div class="jumbotron text-center">
+    <div class="container">
+        <h3>Shopping cart for:</h3>
+        <th:block th:if="${hasError}" th:text="There was no user found!"></th:block>
+        <th:block th:if="!${hasError}" th:text="${#request.getRemoteUser()}"></th:block>
+    </div>
+</div>
+
+<div th:if="${hasError != true}" class="container mb-4">
+
+    <div class="row">
+        <div class="col-md-12" th:if="${cart.getProducts().size() > 0}">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Manufacturer</th>
+                        <th scope="col">Category</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="cart-item" th:each="product,iter : ${cart.getProducts()}">
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.manufacturer != null} ? ${product.manufacturer.name} : 'No Manufacturer'"></td>
+                        <td th:text="${product.category != null} ? ${product.category.name} : 'No Category'"></td>
+                        <td>
+                            <form th:method="DELETE" th:action="@{'shopping-cart/delete/{index}' (index=${iter.index})}">
+                                <button type="submit" class="btn btn-sm btn-danger delete-product">
+                                    <i class="fa fa-trash">Delete</i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center" th:if="${hasError} == true" th:text="${error}"></div>
+</th:block>
